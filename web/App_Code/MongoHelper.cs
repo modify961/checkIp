@@ -46,6 +46,9 @@ public static  class MongoHelper
     /// <returns></returns>
     public static int insert(Agenter agenter)
     {
+        //判断如果不是IP的话返回
+        if (agenter.ip.Split('.').Length != 4)
+            return 0;
         var state = _mongoCollection.Insert(agenter);
         return 1;
     }

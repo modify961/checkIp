@@ -18,8 +18,8 @@ public class Agenter
             int.TryParse(ipInfo[1], out pot);
             port = pot;
             type = ipInfo[2];
-            createTime = DateTime.Now.AddDays(8);
-            checkTime = DateTime.Now.AddDays(8);
+            createTime = DateTime.Now.AddHours(8);
+            checkTime = DateTime.Now.AddHours(8);
         }
     }
     /// <summary>
