@@ -71,7 +71,27 @@ public static  class MongoHelper
         }
         return agenters;
     }
-    
+    /// <summary>
+    /// 根据IP查询是否有重复IP
+    /// </summary>
+    /// <returns></returns>
+    public static Agenter obtainByIp(String ip)
+    {
+        IMongoQuery query = Query.EQ("ip", ip);
+        object item=_mongoCollection.FindAs<Object>(query).FirstOrDefault();
+        if (item != null) {
+            Dictionary<String, Object> dictionary = item.ToBsonDocument().ToDictionary();
+            return new Agenter()
+            {
+                ip = dictionary["ip"].ToString(),
+                port = int.Parse(dictionary["port"].ToString()),
+                type = dictionary["type"] == null ? "" : dictionary["type"].ToString(),
+                createTime = DateTime.Parse(dictionary["createTime"].ToString()),
+                checkTime = DateTime.Parse(dictionary["checkTime"].ToString())
+            };
+        }
+        return null;
+    }
     /// <summary>
     /// 
     /// </summary>

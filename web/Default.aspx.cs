@@ -24,6 +24,7 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        //MongoHelper.obtainByIp("118.114.77.47");
         //MongoHelper.insert(new Agenter("124.34.34.234,90,https"));
         //MongoHelper.delete();
         //MongoHelper.update(new Agenter()

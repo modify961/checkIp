@@ -12,7 +12,7 @@
         ReceiveThread receiveThread = new ReceiveThread();
         //设定检测代理的定时任务，从00分开始没20分钟执行一次，也就是
         //每小时的00，20，40分开始执行检测程序池中的代理IP是否可用
-        QuartzHelp.ExecuteByCron<CheckAgent>("0 0/1 * * * ? ");
+        QuartzHelp.ExecuteByCron<CheckAgent>("0 0/20 * * * ? ");
     }
 
     void Application_End(object sender, EventArgs e)
