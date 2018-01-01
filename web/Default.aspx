@@ -14,7 +14,7 @@
         </div>
         <div>
             <asp:Button ID="Button1" runat="server" Text="查询" OnClick="Button1_Click" />
-            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Button" />
+            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="删除所有IP"  />
         </div>
         <div>
             <table class="list" cellpadding="0" cellspacing="0">
@@ -24,6 +24,8 @@
                         <td >端口号</td>
                         <td >数量</td>
                         <td >格式</td>
+                        <td >创建时间</td>
+                        <td >上次检测时间</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +35,8 @@
                                 <td><%#Eval("ip")%></td>
                                 <td class="center"><%#Eval("port")%></td>
                                 <td class="center"><%#Eval("type")%></td>
+                                 <td class="center"><%#Eval("createTime")%></td>
+                                 <td class="center"><%#Eval("checkTime")%></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>

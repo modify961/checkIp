@@ -18,6 +18,8 @@ public class Agenter
             int.TryParse(ipInfo[1], out pot);
             port = pot;
             type = ipInfo[2];
+            createTime = DateTime.Now.AddDays(8);
+            checkTime = DateTime.Now.AddDays(8);
         }
     }
     /// <summary>
@@ -44,4 +46,12 @@ public class Agenter
     /// 是否可用
     /// </summary>
     public bool usable { set; get; }
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    public DateTime createTime { set; get; }
+    /// <summary>
+    /// 上次检查时间
+    /// </summary>
+    public DateTime checkTime { set; get; }
 }

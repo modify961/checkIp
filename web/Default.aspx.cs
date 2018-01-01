@@ -24,7 +24,15 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        //MongoHelper.insert(new Agenter("124.34.34.234,90,https"));
+        //MongoHelper.delete();
+        //MongoHelper.update(new Agenter()
+        //{
+        //    ip = "124.34.34.234"
+        //});
+        //MongoHelper.delete();
         //MongoHelper.connection();
-        //ThreadHelper threadHelper = new ThreadHelper();
+        //RabbitMQHelper.MQReceive mqReceive = new RabbitMQHelper.MQReceive();
+        //mqReceive.Receive();
     }
 }

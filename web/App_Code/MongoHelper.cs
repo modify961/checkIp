@@ -61,7 +61,9 @@ public static  class MongoHelper
             agenters.Add(new Agenter() {
                 ip= dictionary["ip"].ToString(),
                 port=int.Parse( dictionary["port"].ToString()),
-                type= dictionary["type"]==null?"": dictionary["type"].ToString()
+                type= dictionary["type"]==null?"": dictionary["type"].ToString(),
+                createTime=DateTime.Parse(dictionary["createTime"].ToString()),
+                checkTime = DateTime.Parse(dictionary["checkTime"].ToString())
             });
         }
         return agenters;
@@ -74,5 +76,24 @@ public static  class MongoHelper
     public static void delete(Agenter agenter) {
         IMongoQuery query = Query.EQ("ip", agenter.ip);
         _mongoCollection.Remove(query);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="agenter"></param>
+    public static void delete()
+    {
+        IMongoQuery query = Query.EQ("survibal",0);
+        _mongoCollection.Remove(query);
+    }
+    /// <summary>
+    /// 更新数据
+    /// </summary>
+    /// <param name="agenter"></param>
+    public static void update(Agenter agenter)
+    {
+        IMongoQuery query = Query.EQ("ip", agenter.ip);
+        IMongoUpdate updateItem = Update.Set("checkTime", DateTime.Now.AddHours(8));
+        _mongoCollection.Update(query, updateItem);
     }
 }

@@ -5,18 +5,18 @@ using System.Threading;
 using System.Web;
 
 /// <summary>
-/// ThreadHelper 的摘要说明
+/// IP接收线程数据接收线程
 /// </summary>
-public class ThreadHelper
+public class ReceiveThread
 {
-    public ThreadHelper() {
-        Thread t1 = new Thread(new ThreadStart(TestMethod));
+    public ReceiveThread() {
+        Thread t1 = new Thread(new ThreadStart(receiveIp));
         t1.Start();
     }
     /// <summary>
     /// 
     /// </summary>
-    public static void TestMethod()
+    public static void receiveIp()
     {
         RabbitMQHelper.MQReceive mqReceive = new RabbitMQHelper.MQReceive();
         mqReceive.Receive();
