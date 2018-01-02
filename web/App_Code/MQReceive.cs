@@ -33,8 +33,12 @@ namespace RabbitMQHelper
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     Agenter agernt = new Agenter(message.ToString());
-                    if (MongoHelper.obtainByIp(agernt.ip)==null&&AgentCheck.agentCheck(agernt)) {
-                        MongoHelper.insert(agernt);
+                    if (agernt.anonymous != "透明")
+                    {
+                        if (MongoHelper.obtainByIp(agernt.ip) == null && AgentCheck.agentCheck(agernt))
+                        {
+                            MongoHelper.insert(agernt);
+                        }
                     }
                     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };

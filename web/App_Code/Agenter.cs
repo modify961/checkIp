@@ -11,13 +11,14 @@ public class Agenter
 {
     public Agenter() { }
     public Agenter(String agenter) {
-        String[] ipInfo = agenter.Split(',');
-        if (ipInfo.Length ==3) {
+        String[] ipInfo = agenter.Split('&');
+        if (ipInfo.Length ==4) {
             ip = ipInfo[0];
             int pot = 0;
             int.TryParse(ipInfo[1], out pot);
             port = pot;
             type = ipInfo[2];
+            anonymous= ipInfo[3];
             createTime = DateTime.Now.AddHours(8);
             checkTime = DateTime.Now.AddHours(8);
         }
@@ -35,9 +36,13 @@ public class Agenter
     /// </summary>
     public int port { set; get; }
     /// <summary>
-    /// 是否可用
+    /// http 或者 https
     /// </summary>
     public String type { set; get; }
+    /// <summary>
+    /// 高匿  透明 普匿
+    /// </summary>
+    public String anonymous { set; get; }
     /// <summary>
     /// 存活时间（分钟）
     /// </summary>

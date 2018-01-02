@@ -17,13 +17,13 @@
             <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="删除所有IP"  />
         </div>
         <div>
-            <table class="list" cellpadding="0" cellspacing="0">
+            <table class="list" cellpadding="0" border="1" cellspacing="0">
                 <thead>
                     <tr>
                         <td>IP</td>
                         <td >端口号</td>
-                        <td >数量</td>
                         <td >格式</td>
+                        <td >匿名状态</td>
                         <td >创建时间</td>
                         <td >上次检测时间</td>
                     </tr>
@@ -35,6 +35,7 @@
                                 <td><%#Eval("ip")%></td>
                                 <td class="center"><%#Eval("port")%></td>
                                 <td class="center"><%#Eval("type")%></td>
+                                 <td class="center"><%#Eval("anonymous")%></td>
                                  <td class="center"><%#Eval("createTime")%></td>
                                  <td class="center"><%#Eval("checkTime")%></td>
                             </tr>

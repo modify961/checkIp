@@ -64,8 +64,9 @@ public static  class MongoHelper
             agenters.Add(new Agenter() {
                 ip= dictionary["ip"].ToString(),
                 port=int.Parse( dictionary["port"].ToString()),
-                type= dictionary["type"]==null?"": dictionary["type"].ToString(),
-                createTime=DateTime.Parse(dictionary["createTime"].ToString()),
+                type= !dictionary.ContainsKey("type")?"": dictionary["type"].ToString(),
+                anonymous= !dictionary.ContainsKey("anonymous") ? "" : dictionary["anonymous"].ToString(),
+                createTime =DateTime.Parse(dictionary["createTime"].ToString()),
                 checkTime = DateTime.Parse(dictionary["checkTime"].ToString())
             });
         }
