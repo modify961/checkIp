@@ -13,6 +13,9 @@
             当前共存储IP:<asp:Label ID="Label1" runat="server" Text=""></asp:Label>
         </div>
         <div>
+            废弃的IP数量:<asp:Label ID="Label2" runat="server" Text=""></asp:Label>
+        </div>
+        <div>
             <asp:Button ID="Button1" runat="server" Text="查询" OnClick="Button1_Click" />
             <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="删除所有IP"  />
         </div>

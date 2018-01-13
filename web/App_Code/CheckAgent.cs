@@ -15,6 +15,17 @@ public class CheckAgent:IJob
     /// <param name="context"></param>
     public void Execute(IJobExecutionContext context)
     {
-        CheckThread checkThread = new CheckThread();
+        List<Agenter> agenters = MongoHelper.obtainAll();
+        foreach (var agenter in agenters)
+        {
+            if (!AgentCheck.agentCheck(agenter))
+            {
+                MongoHelper.delete(agenter);
+            }
+            else
+            {
+                MongoHelper.update(agenter);
+            }
+        }
     }
 }

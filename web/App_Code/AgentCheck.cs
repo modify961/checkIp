@@ -21,6 +21,7 @@ public static class AgentCheck
         HttpWebResponse response = null;
         try
         {
+            System.GC.Collect();
             request = BuildRequestObject(new Uri(@"http://ip.chinaz.com/"));
             WebProxy proxy = new WebProxy(agenter.ip, agenter.port);
             request.Proxy = proxy;
@@ -29,14 +30,34 @@ public static class AgentCheck
             if (response.StatusCode == HttpStatusCode.OK) {
                 StreamReader reader = new StreamReader(response.GetResponseStream());//获取应答流
                 string content = reader.ReadToEnd();
-                if(content.IndexOf("search-write-left w442 pr")!=-1)
+                if (content.IndexOf("search-write-left w442 pr") != -1)
+                {
+                    response.Close();
+                    response.Dispose();
+                    request.Abort();
                     return true;
+                }
+                response.Close();
+                response.Dispose();
+                request.Abort();
                 return false;
             }
+            if (response != null)
+            {
+                response.Close();
+                response.Dispose();
+            }
+            request.Abort();
             return false;
         }
         catch (Exception ex)
         {
+            if (response != null)
+            {
+                response.Close();
+                response.Dispose();
+            }
+            request.Abort();
             return false;
         }
     }
@@ -48,6 +69,8 @@ public static class AgentCheck
         request.Accept = "*/*";
         request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
         request.Timeout = 5 * 1000;
+        request.KeepAlive = false;
+        request.ReadWriteTimeout = 5 * 1000;
         return request;
     }
 }

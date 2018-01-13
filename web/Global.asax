@@ -7,10 +7,14 @@
 
     void Application_Start(object sender, EventArgs e)
     {
+        System.Net.ServicePointManager.DefaultConnectionLimit = 512;
         MongoHelper.connection();
+        AbandonIP.connection();
         //启动监听程序用于监听RabbitMQ上的代理IP信息
-        ReceiveThread receiveThread = new ReceiveThread();
-        //设定检测代理的定时任务，从00分开始没20分钟执行一次，也就是
+        //ReceiveThread receiveThread = new ReceiveThread();
+        //RabbitMQHelper.MQReceive mqReceive = new RabbitMQHelper.MQReceive();
+       // mqReceive.Receive();
+        //设定检测代理的定时任务，从00分开始每20分钟执行一次，也就是
         //每小时的00，20，40分开始执行检测程序池中的代理IP是否可用
         QuartzHelp.ExecuteByCron<CheckAgent>("0 0/20 * * * ? ");
     }

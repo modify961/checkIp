@@ -39,6 +39,9 @@ namespace RabbitMQHelper
                         {
                             MongoHelper.insert(agernt);
                         }
+                        else {
+                            ///AbandonIP.insert(agernt);
+                        }
                     }
                     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };

@@ -18,7 +18,6 @@ public class ReceiveThread
     /// </summary>
     public static void receiveIp()
     {
-        RabbitMQHelper.MQReceive mqReceive = new RabbitMQHelper.MQReceive();
-        mqReceive.Receive();
+        
     }
 }
