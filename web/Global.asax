@@ -2,18 +2,28 @@
 
 <script RunAt="server">
 
-    private const string DummyPageUrl = "http://172.16.252.20:7200/Default.aspx";  
-    private const string DummyCacheItemKey = "default";  
+    private const string DummyPageUrl = "http://172.16.252.20:7200/Default.aspx";
+    private const string DummyCacheItemKey = "default";
 
     void Application_Start(object sender, EventArgs e)
     {
         System.Net.ServicePointManager.DefaultConnectionLimit = 512;
+        //代理IP
         MongoHelper.connection();
+        //工作
+        JobMG.connection();
+        //糗百
+        QBaiMG.connection();
+        //废弃IP
         AbandonIP.connection();
         //启动监听程序用于监听RabbitMQ上的代理IP信息
-        //ReceiveThread receiveThread = new ReceiveThread();
-        //RabbitMQHelper.MQReceive mqReceive = new RabbitMQHelper.MQReceive();
-       // mqReceive.Receive();
+        RabbitMQHelper.MQReceive mqReceive = new RabbitMQHelper.MQReceive();
+        mqReceive.Receive();
+        JobMQ jobMQ = new JobMQ();
+        jobMQ.Receive();
+        //糗百
+        QBaiMQ qbaiMQ = new QBaiMQ();
+        qbaiMQ.Receive();
         //设定检测代理的定时任务，从00分开始每20分钟执行一次，也就是
         //每小时的00，20，40分开始执行检测程序池中的代理IP是否可用
         QuartzHelp.ExecuteByCron<CheckAgent>("0 0/20 * * * ? ");
@@ -45,13 +55,13 @@
         // 或 SQLServer，则不引发该事件。
 
     }
-    protected void Application_BeginRequest(Object sender, EventArgs e)  
-    {  
-        if (HttpContext.Current.Request.Url.ToString() == DummyPageUrl)  
-        {  
-            RegisterCacheEntry();  
-        }  
-    }  
+    protected void Application_BeginRequest(Object sender, EventArgs e)
+    {
+        if (HttpContext.Current.Request.Url.ToString() == DummyPageUrl)
+        {
+            RegisterCacheEntry();
+        }
+    }
     // 注册一缓存条目在5分钟内到期，到期后触发的调事件  
     private void RegisterCacheEntry()
     {

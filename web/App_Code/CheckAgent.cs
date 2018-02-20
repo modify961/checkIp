@@ -18,13 +18,19 @@ public class CheckAgent:IJob
         List<Agenter> agenters = MongoHelper.obtainAll();
         foreach (var agenter in agenters)
         {
-            if (!AgentCheck.agentCheck(agenter))
+            try
             {
-                MongoHelper.delete(agenter);
+                if (!AgentCheck.agentCheck(agenter))
+                {
+                    MongoHelper.delete(agenter);
+                }
+                else
+                {
+                    MongoHelper.update(agenter);
+                }
             }
-            else
-            {
-                MongoHelper.update(agenter);
+            catch (Exception ex) {
+
             }
         }
     }
